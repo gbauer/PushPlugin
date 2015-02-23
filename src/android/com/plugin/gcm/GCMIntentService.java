@@ -15,10 +15,14 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
+import java.util.Random;
+
 @SuppressLint("NewApi")
 public class GCMIntentService extends GCMBaseIntentService {
 
 	private static final String TAG = "GCMIntentService";
+
+    private static final Random RAND = new Random();
 	
 	public GCMIntentService() {
 		super("GCMIntentService");
@@ -88,8 +92,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		notificationIntent.putExtra("pushBundle", extras);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		
+		PendingIntent contentIntent = PendingIntent.getActivity(this, RAND.nextInt(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 		int defaults = Notification.DEFAULT_ALL;
 
 		if (extras.getString("defaults") != null) {
